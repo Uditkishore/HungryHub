@@ -12,8 +12,6 @@ const initState = {
 };
 
 const authReducer = (state = initState, { type, payload }) => {
-  console.log("userData", payload)
-
   switch (type) {
     case types.LOGIN_REQUEST:
       return {

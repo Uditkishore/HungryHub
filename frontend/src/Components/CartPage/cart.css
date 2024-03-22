@@ -1,0 +1,35 @@
+.card_details {
+  background-color: #d1ccd8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-table th,
+.cart-table td {
+  vertical-align: middle;
+}
+
+.table_row {
+  border-bottom: 1px solid #ddd;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.btn {
+  cursor: pointer;
+}

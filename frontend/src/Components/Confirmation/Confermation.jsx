@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { fetchCartData } from "../../Redux/Cart/action";
 import { deleteAllCartData } from "../../Redux/Cart/action";
 import "./confirm.css";
 
@@ -12,7 +11,7 @@ const Confirmation = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCartData());
+    // dispatch(fetchCartData());
   }, []);
 
   const handleSubmit = () => {

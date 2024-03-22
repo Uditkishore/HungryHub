@@ -13,9 +13,7 @@ exports.login = async (req, res) => {
     });
 
     return res.status(201).json({
-      token,
-      email: user.email,
-      name: user.username,
+      token
     });
   } catch (error) {
     console.error("Login error:", error.message);

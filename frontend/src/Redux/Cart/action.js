@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as types from "./actionType";
+import { useSelector } from "react-redux";
 
 const fetchCartReq = (payload) => {
   return {
@@ -19,23 +20,7 @@ const fetchCartFaliure = (payload) => {
     payload,
   };
 };
-const cartPostReq = (payload) => {
-  return {
-    type: types.POST_CART_REQ,
-  };
-};
-const postCartSucces = (payload) => {
-  return {
-    type: types.POST_CART_SUCCESS,
-    payload,
-  };
-};
-const postCartFaliure = (err) => {
-  return {
-    type: types.POST_CART_FALIURE,
-    payload: err,
-  };
-};
+
 const deleteCartReq = () => {
   return {
     type: types.DELETE_CART_REQ,
@@ -54,46 +39,12 @@ const deleteCartFaliure = (payload) => {
   };
 };
 
-export const fetchCartData = () => {
-  return (dispatch) => {
-    dispatch(fetchCartReq());
-    axios
-      .get("/cart")
-      .then((res) => dispatch(fetchCartSucces(res.data)))
-      .catch((err) => dispatch(fetchCartFaliure(err.data)));
-  };
-};
-
-// export const patchCartRequest = (payload) => (dispatch) => {
-//   dispatch(cartPostReq());
-//   console.log(payload.ids, payload.qnty);
-//   fakestoreapi
-//     .patch(`/cart/${payload.ids}`, payload.qnty)
-//     .then((res) => {
-//       dispatch(postCartSucces(res.data));
-//     })
-//     .catch((err) => {
-//       dispatch(postCartFaliure(err.message));
-//     });
-// };
-export const postCartRequest = (payload) => (dispatch) => {
-  dispatch(cartPostReq());
-  console.log(payload);
-  fakestoreapi
-    .post(`/cart`, payload)
-    .then((res) => {
-      dispatch(postCartSucces(res.data));
-    })
-    .catch((err) => {
-      dispatch(postCartFaliure(err.message));
-    });
-};
 
 export const deleteCartData = (payload) => {
   return (dispatch) => {
     dispatch(deleteCartReq());
-    fakestoreapi
-      .delete(`/cart/${payload}`)
+    axios
+      .delete(`/update/${payload}`)
       .then((res) => {
         dispatch(deleteCartSucces(res));
       })
@@ -105,7 +56,7 @@ export const deleteCartData = (payload) => {
 export const deleteAllCartData = () => {
   return (dispatch) => {
     dispatch(deleteCartReq());
-    fakestoreapi
+    axios
       .delete(`/cart`)
       .then((res) => {
         dispatch(deleteCartSucces(res));

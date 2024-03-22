@@ -21,7 +21,6 @@ exports.createProduct = async (req, res) => {
 };
 
 exports.getProducts = async (req, res) => {
-  console.log("products")
   try {
     const products = await Product.find().lean().exec();
     return res.status(200).send({ success: true, data: products });

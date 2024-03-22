@@ -44,8 +44,6 @@ export const Homepage = () => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  console.log("loading :", isLoading);
-
   if (isLoading) {
     return (
       <div

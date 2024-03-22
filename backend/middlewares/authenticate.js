@@ -38,6 +38,7 @@ exports.authenticateUser = (req, res, next) => {
     const user = await User.findOne({ _id: decoded_token.userId });
 
     if (user.roles === "admin") {
+      req.user = user
       return next();
     } else {
       return res.status(401).json({ error: "You are not authorized." });
