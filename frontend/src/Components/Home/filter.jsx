@@ -12,6 +12,7 @@ const Filter = ({ filterProducts }) => {
     <div>
       <select className="form-select" onChange={getFilter}>
         <option value="">Filter By Category...</option>
+        <option value="all">All Reciepes</option>
         <option value="veg">Veg</option>
         <option value="non-veg">Non-Veg</option>
       </select>

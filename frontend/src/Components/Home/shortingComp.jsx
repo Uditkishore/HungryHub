@@ -12,10 +12,10 @@ const shortingComp = ({ sortProducts }) => {
     <div>
       <select className="form-select" onChange={getValue}>
         <option value="">Sort By Price...</option>
-        <option value="price ascPrice">Price: Low to High</option>
-        <option value="price descPrice">Price: High to Low</option>
-        <option value="rating ascRating">Rating: Low to High</option>
-        <option value="rating descRating">Rating: High to Low</option>
+        <option value="price ascPrice">Price low</option>
+        <option value="price descPrice">Price High</option>
+        <option value="rating ascRating">Rating Low</option>
+        <option value="rating descRating">Rating High</option>
       </select>
     </div>
   );
