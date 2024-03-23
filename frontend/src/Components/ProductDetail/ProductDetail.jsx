@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getSingleProduct } from "../../Redux/SingleProduct/action";
 import axios from "axios";
+import { addToCart } from "../../Redux/Cart/action";
 
 export const Productpage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -34,18 +35,8 @@ export const Productpage = () => {
       quantity: quantity
     }
 
-    try {
-      let res = await axios.put(`${process.env.BASEURL}/cart/update`, data, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-    } catch (error) {
-      console.log("Cart Update Error", error)
-    } finally {
-      navigate(`/cart`)
-    }
+    dispatch(addToCart(data,token))
+    navigate("/cart")
   }
 
   useEffect(() => {

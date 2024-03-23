@@ -14,7 +14,7 @@ export const fetchCartSucces = (payload) => {
     payload,
   };
 };
-const fetchCartFaliure = (payload) => {
+const fetchCartFailure = (payload) => {
   return {
     type: types.FETCH_CART_FALIURE,
     payload,
@@ -26,12 +26,14 @@ const deleteCartReq = () => {
     type: types.DELETE_CART_REQ,
   };
 };
+
 export const deleteCartSucces = (payload) => {
   return {
     type: types.DELETE_CART_SUCCESS,
     payload,
   };
 };
+
 const deleteCartFaliure = (payload) => {
   return {
     type: types.DELETE_CART_FAILURE,
@@ -40,19 +42,55 @@ const deleteCartFaliure = (payload) => {
 };
 
 
-export const deleteCartData = (payload) => {
+export const fetchCartData = (token) => {
   return (dispatch) => {
-    dispatch(deleteCartReq());
+    dispatch(fetchCartReq());
     axios
-      .delete(`/update/${payload}`)
-      .then((res) => {
-        dispatch(deleteCartSucces(res));
+      .get(`${process.env.BASEURL}/cart/products`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .catch((err) => {
-        dispatch(deleteCartFaliure(err.message));
-      });
+      .then((res) => dispatch(fetchCartSucces(res.data)))
+      .catch((err) => dispatch(fetchCartFailure(err.data)));
   };
 };
+
+export const addToCart = (data, token) => {
+  return async (dispatch) => {
+    dispatch(deleteCartReq());
+    try {
+      let res = await axios.put(`${process.env.BASEURL}/cart/update`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      dispatch(fetchCartSucces(res.data))
+    } catch (error) {
+      console.log("Cart Update Error", error);
+      dispatch(updateCartFailure(error.message));
+    }
+  };
+};
+
+export const deleteCartData = (id, token) => {
+  return async (dispatch) => {
+    try {
+      let res = await axios.delete(`${process.env.BASEURL}/cart/cartItem/remove/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+      dispatch(deleteCartSucces(res.data));
+    } catch (error) {
+      console.log("Cart Update Error", error);
+      dispatch(deleteCartFaliure(error.message));
+    }
+  };
+};
+
 export const deleteAllCartData = () => {
   return (dispatch) => {
     dispatch(deleteCartReq());
