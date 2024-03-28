@@ -35,7 +35,6 @@ exports.updateCartItem = async (req, res) => {
 exports.removeFromCart = async (req, res) => {
   try {
     const userId = req.user
-    console.log("userId delete", userId)
     const productId = req.params.id;
 
     const cart = await Cart.findByIdAndDelete({_id : productId})
