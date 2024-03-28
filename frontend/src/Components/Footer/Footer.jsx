@@ -22,9 +22,9 @@ export const Footer = () => {
             <div className="row py-4">
               <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <img
-                  src=""
+                  src="https://www.svgheart.com/wp-content/uploads/2023/01/chef_605-430-min.png"
                   alt="image"
-                  width="180"
+                  width="250"
                   className="mb-3"
                 />
                 <p className="font-italic text-muted">
