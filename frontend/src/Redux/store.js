@@ -10,7 +10,7 @@ import checkoutReducer from "./Checkout/reducer";
 
 const rootReducer = combineReducers({
   ecommerceData: productReducer,
-  isAuth: authReducer,
+  token: authReducer,
   singleProduct: singleProductReducer,
   checkoutData: checkoutReducer,
   cartData: cartReducer,

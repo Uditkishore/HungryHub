@@ -1,49 +1,30 @@
-import { loadData, saveData, clearData } from "../../utils/localstorage";
-
-const user = loadData("user");
-
 import * as types from "./actionType";
+let storageToken = JSON.parse(localStorage.getItem("token"));
 
 const initState = {
-  isAuth: user ? true : false,
-  user: user || "",
-  isError: false,
-  isLoding: false,
+  token: storageToken ? storageToken : null,
+  loading: false,
 };
 
 const authReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case types.LOGIN_REQUEST:
       return {
-        ...state,
-        isLoding: true,
-        isError: false,
+        ...state, token: null, loading: true
       };
     case types.LOGIN_SUCCESS:
-      saveData("user", payload);
+      localStorage.setItem("token", JSON.stringify(payload.token));
       return {
-        ...state,
-        isAuth: true,
-        user: payload,
-        isError: false,
-        isLoding: false,
+        ...state, token: payload.token, loading: false,
       };
     case types.LOGIN_FALIURE:
       return {
-        ...state,
-        isAuth: false,
-        user: "",
-        isError: true,
-        isLoding: false,
+        ...state, token: null, error: true, loading: false,
       };
     case types.CLEAR_DATA:
-      clearData("user");
+      localStorage.removeItem('token');
       return {
-        ...state,
-        isAuth: false,
-        user: "",
-        isError: false,
-        isLoding: false,
+        ...state, token: null, loading: false,
       };
     default:
       return state;

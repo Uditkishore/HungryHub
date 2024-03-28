@@ -6,28 +6,26 @@ import axios from "axios";
 import EmptycartPage from "./emptyPage.cart";
 import "./cart.css"
 import { deleteCartData, fetchCartData } from "../../Redux/Cart/action";
+import Loading from "../loading";
 
 export const Cart = () => {
-  const token = useSelector((state) => state.isAuth.user.token);
-  const {cart, isLoading, isError} = useSelector((state) => state.cartData);
+  const token = useSelector((state) => state.token.token);
+  const { cart, isLoading, error } = useSelector((state) => state.cartData);
+  let total = cart.reduce((acc, curr) => acc + curr.productId.price, 0)
 
-  let total = useRef(0);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchCartData(token))
-  }, []);
-
-  const dlt = (id)=>{
+  const dlt = (id, index) => {
     dispatch(deleteCartData(id, token))
+    cart.splice(index, 1)
   }
 
+  if (isLoading) return <Loading />
   return (
     <div className="card_details" style={{ padding: 20, minHeight: "100vh" }}>
       <Container fluid>
         <h2 className="mb-4">Your Cart</h2>
-        {isError && <Alert variant="danger">{isError}</Alert>}
-        {cart.data && cart.data.length ? (
+        {cart && cart.length ? (
           <>
             <Table responsive className="cart-table">
               <thead>
@@ -40,7 +38,7 @@ export const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                {cart.data.map((e) => (
+                {cart.map((e, i) => (
                   <tr className="table_row" key={e._id}>
                     <td><img src={e.productId.image} style={{ width: "100px", height: "100px" }} alt="" /></td>
                     <td><p>{e.productId.catagory}</p></td>
@@ -50,7 +48,7 @@ export const Cart = () => {
                         <Button variant="outline-primary" className="me-2" onClick={() => changeData(e._id, -1)} disabled={e.qnty <= 1}>
                           -
                         </Button>
-                        <span>{e.qnty}</span>
+                        <span>{e.quantity}</span>
                         <Button
                           variant="outline-primary"
                           className="ms-2"
@@ -61,7 +59,7 @@ export const Cart = () => {
                       </div>
                     </td>
                     <td>
-                      <Button variant="danger" onClick={() => dlt(e._id)}>
+                      <Button variant="danger" onClick={() => dlt(e._id, i)}>
                         Remove
                       </Button>
                     </td>
@@ -70,10 +68,13 @@ export const Cart = () => {
               </tbody>
             </Table>
             <div className="d-flex justify-content-between">
-              <p className="text-center">Total: ₹ {total.current}</p>
-              <Link to={"/checkout"}>
-                <Button variant="primary">Checkout</Button>
-              </Link>
+              <p className="text-center">Total: ₹ {total}</p>
+              <div>
+                {/* <Link to={"/checkout"}> */}
+                  <Button disabled={true} variant="secondary">Checkout</Button>
+                {/* </Link> */}
+                <p>Checkout work is in progress</p>
+              </div>
             </div>
           </>
         ) : (

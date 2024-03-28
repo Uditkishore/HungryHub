@@ -6,7 +6,7 @@ const userRoute = require("./routes/user.router");
 const productRoute = require("./routes/product.router")
 const cartRoutes = require("./routes/cart.router");
 const app = express();
-
+ 
 //middlewares
 app.use(cors());
 app.use(express.json());
@@ -25,3 +25,4 @@ app.listen(port, () => {
   connect();
   console.log("You listening on 8080...");
 });
+

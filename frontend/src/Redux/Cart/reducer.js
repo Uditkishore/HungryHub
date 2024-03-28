@@ -2,7 +2,7 @@ import * as types from "./actionType";
 
 const initState = {
   cart: [],
-  isError: false,
+  error: false,
   isLoading: true,
 };
 
@@ -12,33 +12,33 @@ const reducer = (state = initState, action) => {
     case types.FETCH_CART_REQ:
       return {
         ...state,
-        isError: false,
+        error: false,
         isLoading: true,
       };
     case types.FETCH_CART_SUCCESS:
       return {
         ...state,
         cart: payload,
-        isError: false,
+        error: false,
         isLoading: false,
       };
     case types.FETCH_CART_FALIURE:
       return {
         ...state,
-        isError: true,
+        error: true,
         isLoading: false,
       };
     case types.POST_CART_REQ:
       return {
         ...state,
-        isError: false,
+        error: false,
         isLoading: true,
       };
     case types.POST_CART_SUCCESS:
       return {
         ...state,
         cart: payload,
-        isError: false,
+        error: false,
         isLoading: false,
       };
     case types.POST_CART_FALIURE:
@@ -50,12 +50,12 @@ const reducer = (state = initState, action) => {
     case types.DELETE_CART_REQ:
       return {
         ...state,
-        isError: false,
+        error: false,
       };
     case types.DELETE_CART_SUCCESS:
       return {
         ...state,
-        isError: false,
+        error: false,
       };
     case types.DELETE_CART_FAILURE:
       return {

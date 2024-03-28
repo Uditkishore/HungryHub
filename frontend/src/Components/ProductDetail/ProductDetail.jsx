@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Carousel } from "react-bootstrap";
+import { Button, Carousel, Toast } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { getSingleProduct } from "../../Redux/SingleProduct/action";
 import axios from "axios";
 import { addToCart } from "../../Redux/Cart/action";
+import { ToastContainer, toast } from 'react-toastify';
+import Loading from "../loading";
 
 export const Productpage = () => {
   const [quantity, setQuantity] = useState(1);
@@ -14,9 +16,10 @@ export const Productpage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const {cart} = useSelector((state) => state.cartData);
   const singleData = useSelector((store) => store.singleProduct.item);
   const isLoading = useSelector((state) => state.singleProduct.isLoading);
-  const token = useSelector((state) => state.isAuth.user.token);
+  const { token } = useSelector((state) => state.token);
 
   const incrementQuantity = () => {
     setQuantity(quantity + 1);
@@ -28,16 +31,28 @@ export const Productpage = () => {
     }
   };
 
-  const handleCart = async () => {
-
+  const handleCart = async (product) => {
     let data = {
-      productId: singleData._id,
-      quantity: quantity
-    }
+      productId: product._id,
+      quantity: quantity 
+    };
+  
+    const exists = cart.find(item => item.productId._id === product._id);
 
-    dispatch(addToCart(data,token))
-    navigate("/cart")
-  }
+  
+    if (exists) {
+      toast.info('🦄 Product already exists.');
+    } else {
+      if (!token) {
+        toast.warn('🦄 Register to make a purchase.');
+      } else {
+        dispatch(addToCart(data, token));
+        toast.success('🦄 Added Successfully.');
+        setTimeout(()=> navigate('/cart'), 6000)
+      }
+    }
+  };
+  
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
@@ -49,21 +64,11 @@ export const Productpage = () => {
     navigate("/login");
   };
 
-  if (isLoading) {
-    return (
-      <div
-        className="min-vh-100 w-100 d-flex justify-content-center align-items-center"
-      >
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
+  if (isLoading) return <Loading />
   return (
     <div id="productDetailsPage" className="container mt-4 min-vh-100">
       <section className="mt-4 mb-5 py-5">
+        <ToastContainer />
         <div className="row">
           <div className="col-lg-6">
             <div className="productImageContainer">
@@ -97,13 +102,7 @@ export const Productpage = () => {
                 </div>
               </div>
               <div className="buttonDiv">
-                {token ? (
-                  <Button onClick={handleCart} variant="primary" className="w-100" > Add to Cart </Button>
-                ) : (
-                  <button className="btn btn-primary w-100" onClick={navigateLogin} >
-                    Add to Cart
-                  </button>
-                )}
+                <Button onClick={() => handleCart(singleData)} variant="primary" className="w-100" > Add to Cart </Button>
               </div>
             </div>
           </div>

@@ -9,8 +9,8 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 function LoginPage() {
   const dispatch = useDispatch();
 
-  const { isAuth, isLoding, isError } = useSelector(
-    (state) => state.isAuth,
+  const { token, loading, error } = useSelector(
+    (state) => state.token,
     shallowEqual
   );
 
@@ -18,11 +18,11 @@ function LoginPage() {
     dispatch(loginUser({ email, password }));
   };
 
-  if (isAuth) {
+  if (token) {
     return <Navigate to="/" />;
   }
 
-  if (isLoding) {
+  if (loading) {
     return (
       <div id="loader">
         <div className="spinner-border" role="status">
@@ -31,9 +31,10 @@ function LoginPage() {
       </div>
     );
   }
+  
   return (
     <div>
-      {isError && (
+      {error && (
         <div className="text-center"> Username and password is incorrect </div>
       )}
       <div>

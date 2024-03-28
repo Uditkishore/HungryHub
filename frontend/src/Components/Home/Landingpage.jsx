@@ -10,6 +10,8 @@ import { useNavigate } from "react-router";
 import ShortingComp from "./shortingComp";
 import Filter from "./filter";
 import { ProductCard } from "./product";
+import Loading from "../loading";
+import { fetchCartData } from "../../Redux/Cart/action";
 
 export const Homepage = () => {
   const dispatch = useDispatch();
@@ -40,22 +42,7 @@ export const Homepage = () => {
     navigate(`/product/${productId}`);
   };
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
-
-  if (isLoading) {
-    return (
-      <div
-        className="min-vh-100 w-100 d-flex justify-content-center align-items-center"
-      >
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
+  if (isLoading) return <Loading/>
   return (
     <div className="container h-100 mt-3">
       <div className="row bg justify-content-between gap-2">

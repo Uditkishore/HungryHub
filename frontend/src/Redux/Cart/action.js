@@ -51,14 +51,13 @@ export const fetchCartData = (token) => {
           Authorization: `Bearer ${token}`
         }
       })
-      .then((res) => dispatch(fetchCartSucces(res.data)))
+      .then((res) => dispatch(fetchCartSucces(res.data.data)))
       .catch((err) => dispatch(fetchCartFailure(err.data)));
   };
 };
 
 export const addToCart = (data, token) => {
   return async (dispatch) => {
-    dispatch(deleteCartReq());
     try {
       let res = await axios.put(`${process.env.BASEURL}/cart/update`, data, {
         headers: {
@@ -66,10 +65,9 @@ export const addToCart = (data, token) => {
           'Authorization': `Bearer ${token}`,
         }
       });
-      dispatch(fetchCartSucces(res.data))
+      dispatch(fetchCartData(token))
     } catch (error) {
       console.log("Cart Update Error", error);
-      dispatch(updateCartFailure(error.message));
     }
   };
 };

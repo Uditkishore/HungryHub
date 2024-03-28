@@ -1,28 +1,33 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const LoginComp = ({ HandleLogin }) => {
-  const [user, setuser] = useState({});
-  const [toggle, settoggle] = useState(true);
+  const [disable, setDisable] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setuser({
-      ...user,
+    setUser((prevUser) => ({
+      ...prevUser,
       [id]: value,
-    });
-    if (Object.keys(user).length == 2) {
-      settoggle(false);
-    }
+    }));
   };
 
   const userData = () => {
-    HandleLogin(user);
+    if (user && user.email && user.email.length > 2 && user.password && user.password.length > 5) {
+      return HandleLogin(user);
+    } else {
+      toast("A field shouldn't be left blank.");
+    }
   };
+
 
   return (
     <div id="contain">
+      <ToastContainer />
       <h2>Sign In or Create an Account</h2>
       <div id="details">
         <div>
@@ -31,7 +36,7 @@ const LoginComp = ({ HandleLogin }) => {
             onChange={handleChange}
             type="email"
             name=""
-            placeholder="Use this if you forgot admin@gmail.com"
+            placeholder="Enter your username" // admin@gmail.com
             id="email"
           />
         </div>
@@ -40,7 +45,7 @@ const LoginComp = ({ HandleLogin }) => {
           <input
             onChange={handleChange}
             type="password"
-            placeholder="use this if you forget admin12"
+            placeholder="Please enter password" // admin12
             id="password"
           />
         </div>
@@ -48,7 +53,7 @@ const LoginComp = ({ HandleLogin }) => {
       <button
         className="w-100 btn btn-primary"
         onClick={userData}
-        disabled={toggle}
+        disabled={disable}
       >
         Login
       </button>

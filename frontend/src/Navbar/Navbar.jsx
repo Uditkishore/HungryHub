@@ -7,7 +7,7 @@ import { clearUser } from "../Redux/Auth/action";
 
 export const Headers = () => {
   const cartData = useSelector((e) => e.cartData);
-  const { isAuth } = useSelector((state) => state.isAuth);
+  const { token } = useSelector((state) => state.token);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ export const Headers = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto px-5 gap-2 align-items-center">
               <Nav.Link className="mx-3 pointer" onClick={() => navigate("/")}>Home</Nav.Link>
-              {isAuth ? (
+              {token ? (
                 <>
                   <Nav.Link className="mx-3 pointer" onClick={logoutBtn}>
                     Logout
@@ -52,7 +52,7 @@ export const Headers = () => {
                       vertical: "top",
                       horizontal: "right",
                     }}
-                    className="cart-icon"
+                    className="cart-icon coursor-pointer"
                   >
                     <i
                       className="fa-solid fa-cart-shopping text-light"

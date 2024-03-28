@@ -33,9 +33,8 @@ export const loginUser = (payload) => (dispatch) => {
   dispatch(loginRequest());
   const { email, password } = payload;
 
-  axios.post(`http://localhost:8080/user/login`, { email, password })
+  axios.post(`${process.env.BASEURL}/user/login`, { email, password })
     .then((res) => {
-      console.log("login res", res);
       dispatch(loginSuccess(res.data)); 
     })
     .catch((err) => {
