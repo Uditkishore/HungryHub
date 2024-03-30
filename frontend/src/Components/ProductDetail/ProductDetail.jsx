@@ -39,6 +39,8 @@ export const Productpage = () => {
   
     const exists = cart.find(item => item.productId._id === product._id);
 
+    console.log("token",token)
+
   
     if (exists) {
       toast.info('🦄 Product already exists.');
