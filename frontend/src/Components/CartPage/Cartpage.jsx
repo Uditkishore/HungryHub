@@ -5,6 +5,7 @@ import EmptycartPage from "./emptyPage.cart";
 import "./cart.css"
 import { deleteCartData } from "../../Redux/Cart/action";
 import Loading from "../loading";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const token = useSelector((state) => state.token.token);
@@ -18,10 +19,8 @@ export const Cart = () => {
   };
 
   const decrementQuantity = (e) => {
-    if (e.quantity > 1) {
       e.quantity -= 1;
       setQuantity(e.quantity - 1);
-    }
   };
 
   const dispatch = useDispatch();
@@ -50,7 +49,7 @@ export const Cart = () => {
                       </div>
                       <div className="d-flex justify-content-between" style={{width : `100%`}}>
                         <div className="">
-                          <Button variant="outline-primary" className="me-2" onClick={() => decrementQuantity(e)} disabled={e.qnty <= 1}>
+                          <Button variant="outline-primary" className="me-2" onClick={() => decrementQuantity(e)} disabled={e.quantity <= 1}>
                             -
                           </Button>
                           <span>{e.quantity}</span>
@@ -72,13 +71,13 @@ export const Cart = () => {
               </tbody>
             </Table>
             <div className="d-flex justify-content-between align-items-center p-5">
-              <p className="">Total: <b>₹ {total}</b></p>
+              <p className="">Total Amount: <b>₹ {total}</b></p>
               <div>
-                {/* <Link to={"/checkout"}> */}
-                <Button disabled={true} variant="secondary">
+                <Link to={"/checkout"}>
+                <Button variant="secondary">
                   Checkout
                 </Button>
-                {/* </Link> */}
+                </Link>
               </div>
             </div>
           </>
