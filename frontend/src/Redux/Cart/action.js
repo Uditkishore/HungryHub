@@ -69,8 +69,7 @@ export const addToCart = (data, token) => {
       dispatch(fetchCartData(token))
     } catch (error) {
       console.log("Cart Update Error", error);
-      if("Cart Update Error", error.response.data.error === "jwt expired") {
-        localStorage.removeItem("token");
+      if("Cart Update Error", error.response.data.msg === "Unauthorized") {
         toast("Session Expired Please login.")
         return
       }

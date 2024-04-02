@@ -21,32 +21,28 @@ exports.compairPassword = async (req, res, next) => {
   }
 };
 
-exports.authenticateUser = (req, res, next) => {
-  const authToken = req.headers.authorization;
+exports.authenticateUser = async (req, res, next) => {
+  try {
 
-  if (!authToken) {
-    return res.status(401).json({ error: "No token provided" });
+      var token = req.headers.authorization.split(' ')[1];
+      var decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      if (!decoded) {
+          req.isAuth = false;
+          return res.status(401).json({ status: false, msg: "Unauthorized" });
+      }
+
+    if (decoded) {
+          req.user = decoded.uuid
+          req.token = token;
+          return next();
+      };
+
+  } catch (error) {
+      console.log(error);
+      return res.status(401).json({ status: false, msg: "Unauthorized" });
   }
-
-  const token = authToken.split(" ")[1];
-  
-  jwt.verify(token, "your-secret-key", async (err, decoded_token) => {
-    if (err) {
-      console.log("error", err.message)
-      return res.status(401).json({ error: err.message });
-    }
-    
-
-    const user = await User.findOne({ _id: decoded_token.userId });
-
-    if (user) {
-      req.user = user
-      return next();
-    } else {
-      return res.status(401).json({ error: "You are not authorized." });
-    }
-  });
-};
+}
 
 // Middleware to check for duplicate user
 exports.checkDuplicateUser = async (req, res, next) => {

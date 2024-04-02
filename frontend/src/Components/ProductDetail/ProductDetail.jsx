@@ -49,8 +49,6 @@ export const Productpage = () => {
         toast.warn('🦄 Register to make a purchase.');
       } else {
         dispatch(addToCart(data, token));
-        toast.success('🦄 Added Successfully.');
-        setTimeout(()=> navigate('/cart'), 6000)
       }
     }
   };
