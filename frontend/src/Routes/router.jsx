@@ -10,8 +10,8 @@ import Signup from "../Components/Signup/Signup";
 import LoginPage from "../Components/Login/Login";
 import Confirmation from "../Components/Confirmation/Confermation";
 import NotFound from "../Components/notFound";
-import AddProduct from "../Components/addProduct";
 import { useSelector } from "react-redux";
+import AdminPage from "../Components/addProduct";
 
 export const Router = () => {
   const token = useSelector((state) => state.token.token);
@@ -26,7 +26,7 @@ export const Router = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         {token &&
-          <Route path="/addItem" element={<AddProduct />} />
+          <Route path="/admin" element={<AdminPage />} />
         }
         <Route path="/confirm" element={<Confirmation />} />
         <Route path="/product/:id" element={<Productpage />} />

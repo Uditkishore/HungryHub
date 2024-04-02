@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Import axios for making HTTP requests
 import { useSelector } from 'react-redux';
 
-const AddProduct = () => {
+const AdminPage = () => {
   const token = useSelector((state) => state.token.token);
   const [formData, setFormData] = useState({
     name: '',
@@ -51,4 +51,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AdminPage;

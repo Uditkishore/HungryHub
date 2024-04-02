@@ -37,7 +37,7 @@ exports.authenticateUser = (req, res, next) => {
 
     const user = await User.findOne({ _id: decoded_token.userId });
 
-    if (user.roles === "admin") {
+    if (user) {
       req.user = user
       return next();
     } else {

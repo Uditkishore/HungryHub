@@ -12,8 +12,12 @@ exports.login = async (req, res) => {
       expiresIn: "1h",
     });
 
+    if(!token) return res.status(201).json({ success : false, message : "Token Expired." });
+
     return res.status(201).json({
-      token
+      success : false,
+      token,
+      user : user.roles
     });
   } catch (error) {
     console.error("Login error:", error.message);
