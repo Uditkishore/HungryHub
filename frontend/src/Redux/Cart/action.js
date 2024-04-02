@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as types from "./actionType";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const fetchCartReq = (payload) => {
   return {
@@ -68,6 +69,11 @@ export const addToCart = (data, token) => {
       dispatch(fetchCartData(token))
     } catch (error) {
       console.log("Cart Update Error", error);
+      if("Cart Update Error", error.response.data.error === "jwt expired") {
+        localStorage.removeItem("token");
+        toast("Session Expired Please login.")
+        return
+      }
     }
   };
 };

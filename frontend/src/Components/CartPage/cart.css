@@ -3,6 +3,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 .cart-table th,
@@ -33,3 +34,36 @@
 .btn {
   cursor: pointer;
 }
+
+.cart-table th,
+.cart-table td {
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+  .cart-table th,
+  .cart-table td {
+    flex-direction: column;
+    align-items: normal;
+  }
+
+  .cart-table th::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .card_details {
+    padding: 5px;
+  }
+}
+
+
+
+
+
+

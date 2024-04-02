@@ -24,7 +24,7 @@ export const Footer = () => {
                 <img
                   src="https://www.svgheart.com/wp-content/uploads/2023/01/chef_605-430-min.png"
                   alt="image"
-                  width="250"
+                  width="200"
                   className="mb-3"
                 />
                 <p className="font-italic text-muted">

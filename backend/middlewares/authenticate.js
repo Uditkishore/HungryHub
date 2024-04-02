@@ -29,11 +29,13 @@ exports.authenticateUser = (req, res, next) => {
   }
 
   const token = authToken.split(" ")[1];
-
+  
   jwt.verify(token, "your-secret-key", async (err, decoded_token) => {
     if (err) {
-      return res.status(401).json({ error: "Failed to authenticate token" });
+      console.log("error", err.message)
+      return res.status(401).json({ error: err.message });
     }
+    
 
     const user = await User.findOne({ _id: decoded_token.userId });
 

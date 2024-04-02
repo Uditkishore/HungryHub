@@ -22,56 +22,49 @@ export const Cart = () => {
 
   if (isLoading) return <Loading />
   return (
-    <div className="card_details" style={{ padding: 20, minHeight: "100vh" }}>
-      <Container fluid>
-        <h2 className="mb-4">Your Cart</h2>
+    <div className="card_details" style={{ minHeight: "100vh" }}>
+      <Container className="card p-2" fluid>
+        <h2>Your Cart</h2>
         {cart && cart.length ? (
           <>
-            <Table responsive className="cart-table">
-              <thead>
-                <tr>
-                  <th>Photo</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
+            <Table responsive className="cart-table mt-5">
               <tbody>
                 {cart.map((e, i) => (
                   <tr className="table_row" key={e._id}>
-                    <td><img src={e.productId.image} style={{ width: "100px", height: "100px" }} alt="" /></td>
-                    <td><p>{e.productId.catagory}</p></td>
-                    <td><p>₹{e.productId.price}</p></td>
-                    <td>
-                      <div className="d-flex align-items-center">
-                        <Button variant="outline-primary" className="me-2" onClick={() => changeData(e._id, -1)} disabled={e.qnty <= 1}>
-                          -
-                        </Button>
-                        <span>{e.quantity}</span>
-                        <Button
-                          variant="outline-primary"
-                          className="ms-2"
-                          onClick={() => changeData(e._id, 1)}
-                        >
-                          +
+                    <td >
+                      <img className="ard-img-top" src={e.productId.image} alt="" />
+                      <div>
+                        <p>{e.productId.catagory}</p>
+                        <p>₹{e.productId.price}</p>
+                      </div>
+                      <div className="d-flex w-full justify-content-between gap-5">
+                        <div className="d-flex align-items-center">
+                          <Button variant="outline-primary" className="me-2" onClick={() => changeData(e._id, -1)} disabled={e.qnty <= 1}>
+                            -
+                          </Button>
+                          <span>{e.quantity}</span>
+                          <Button
+                            variant="outline-primary"
+                            className="ms-2"
+                            onClick={() => changeData(e._id, 1)}
+                          >
+                            +
+                          </Button>
+                        </div>
+                        <Button variant="danger" onClick={() => dlt(e._id, i)}>
+                          Remove
                         </Button>
                       </div>
-                    </td>
-                    <td>
-                      <Button variant="danger" onClick={() => dlt(e._id, i)}>
-                        Remove
-                      </Button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between p-5">
               <p className="text-center">Total: ₹ {total}</p>
               <div>
                 {/* <Link to={"/checkout"}> */}
-                  <Button disabled={true} variant="secondary">Checkout</Button>
+                <Button disabled={true} variant="secondary">Checkout</Button>
                 {/* </Link> */}
                 <p>Checkout work is in progress</p>
               </div>

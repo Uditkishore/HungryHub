@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import Select from 'react-select';
 
-const SortBy = ({ inputValue, options }) => {
+const SortBy = ({ inputValue, options, placeholder }) => {
   const [query, setQuery] = useState('');
 
   const getValue = (selectedOption) => {
-    setQuery(selectedOption);
-    inputValue(selectedOption);
+    const {value} = selectedOption;
+    setQuery(value);
+    inputValue(value);
   };
   
   return (
     <Select
       value={query}
+      placeholder={placeholder}
       onChange={getValue}
       options={options}
     />
