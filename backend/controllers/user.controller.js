@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
 
     // Generate a token
     const token = jwt.sign({ userId: user._id }, "your-secret-key", {
-      expiresIn: "1m",
+      expiresIn: "12h",
     });
 
     if(!token) return res.status(401).json({ success : false, message : "Token Expired." });

@@ -1,17 +1,28 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Table, Button, Container, Alert } from "react-bootstrap";
+import React, { useState } from "react";
+import { Table, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import axios from "axios";
 import EmptycartPage from "./emptyPage.cart";
 import "./cart.css"
-import { deleteCartData, fetchCartData } from "../../Redux/Cart/action";
+import { deleteCartData } from "../../Redux/Cart/action";
 import Loading from "../loading";
 
 export const Cart = () => {
   const token = useSelector((state) => state.token.token);
   const { cart, isLoading, error } = useSelector((state) => state.cartData);
-  let total = cart.reduce((acc, curr) => acc + curr.productId.price, 0)
+  let total = cart.reduce((acc, curr) => acc + (curr.productId.price * curr.quantity), 0)
+  const [quantity, setQuantity] = useState(1);
+
+  const incrementQuantity = (e) => {
+    e.quantity += 1;
+    setQuantity(e.quantity + 1);
+  };
+
+  const decrementQuantity = (e) => {
+    if (e.quantity > 1) {
+      e.quantity -= 1;
+      setQuantity(e.quantity - 1);
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -37,21 +48,21 @@ export const Cart = () => {
                         <p>{e.productId.catagory}</p>
                         <p>₹{e.productId.price}</p>
                       </div>
-                      <div className="d-flex w-full justify-content-between gap-5">
-                        <div className="d-flex align-items-center">
-                          <Button variant="outline-primary" className="me-2" onClick={() => changeData(e._id, -1)} disabled={e.qnty <= 1}>
+                      <div className="d-flex justify-content-between" style={{width : `100%`}}>
+                        <div className="">
+                          <Button variant="outline-primary" className="me-2" onClick={() => decrementQuantity(e)} disabled={e.qnty <= 1}>
                             -
                           </Button>
                           <span>{e.quantity}</span>
                           <Button
                             variant="outline-primary"
                             className="ms-2"
-                            onClick={() => changeData(e._id, 1)}
+                            onClick={() => incrementQuantity(e)}
                           >
                             +
                           </Button>
                         </div>
-                        <Button variant="danger" onClick={() => dlt(e._id, i)}>
+                        <Button className="6" variant="danger" onClick={() => dlt(e._id, i)}>
                           Remove
                         </Button>
                       </div>
@@ -60,13 +71,14 @@ export const Cart = () => {
                 ))}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-between p-5">
-              <p className="text-center">Total: ₹ {total}</p>
+            <div className="d-flex justify-content-between align-items-center p-5">
+              <p className="">Total: <b>₹ {total}</b></p>
               <div>
                 {/* <Link to={"/checkout"}> */}
-                <Button disabled={true} variant="secondary">Checkout</Button>
+                <Button disabled={true} variant="secondary">
+                  Checkout
+                </Button>
                 {/* </Link> */}
-                <p>Checkout work is in progress</p>
               </div>
             </div>
           </>

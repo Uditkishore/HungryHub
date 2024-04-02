@@ -24,23 +24,23 @@ exports.compairPassword = async (req, res, next) => {
 exports.authenticateUser = async (req, res, next) => {
   try {
 
-      var token = req.headers.authorization.split(' ')[1];
-      var decoded = jwt.verify(token, process.env.JWT_SECRET);
+    var token = req.headers.authorization.split(' ')[1];
+    var decoded = jwt.verify(token, "your-secret-key");
 
-      if (!decoded) {
-          req.isAuth = false;
-          return res.status(401).json({ status: false, msg: "Unauthorized" });
-      }
+    if (!decoded) {
+      req.isAuth = false;
+      return res.status(401).json({ status: false, msg: "Unauthorized" });
+    }
 
     if (decoded) {
-          req.user = decoded.uuid
-          req.token = token;
-          return next();
-      };
+      req.user = decoded.userId,
+      req.token = token;
+      return next();
+    };
 
   } catch (error) {
-      console.log(error);
-      return res.status(401).json({ status: false, msg: "Unauthorized" });
+    console.log(error);
+    return res.status(401).json({ status: false, msg: "Unauthorized" });
   }
 }
 
