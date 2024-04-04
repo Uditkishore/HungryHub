@@ -6,6 +6,7 @@ import "./cart.css"
 import { deleteCartData } from "../../Redux/Cart/action";
 import Loading from "../loading";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export const Cart = () => {
   const token = useSelector((state) => state.token.token);
@@ -13,14 +14,38 @@ export const Cart = () => {
   let total = cart.reduce((acc, curr) => acc + (curr.productId.price * curr.quantity), 0)
   const [quantity, setQuantity] = useState(1);
 
-  const incrementQuantity = (e) => {
+  const incrementQuantity = async(e) => {
     e.quantity += 1;
+
+    let data = {
+      productId: e._id,
+      quantity: e.quantity 
+    };
+
+    await axios.post(`${process.env.BASEURL}/cart/updateCart`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+
     setQuantity(e.quantity + 1);
   };
 
-  const decrementQuantity = (e) => {
-      e.quantity -= 1;
-      setQuantity(e.quantity - 1);
+  const decrementQuantity = async(e) => {
+    e.quantity -= 1;
+    let data = {
+      productId: e._id,
+      quantity: e.quantity 
+    };
+
+   await axios.post(`${process.env.BASEURL}/cart/updateCart`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    });
+    setQuantity(e.quantity - 1);
   };
 
   const dispatch = useDispatch();
@@ -28,6 +53,29 @@ export const Cart = () => {
   const dlt = (id, index) => {
     dispatch(deleteCartData(id, token))
     cart.splice(index, 1)
+  }
+
+  const handleCartCheckout = () => {
+    try {
+      let data = {
+        productId: product._id,
+        quantity: quantity 
+      };
+    
+      const exists = cart.find(item => item.productId._id === product._id);
+    
+      if (exists) {
+        toast.info('🦄 Product already exists.');
+      } else {
+        if (!token) {
+          toast.warn('🦄 Register to make a purchase.');
+        } else {
+          dispatch(addToCart(data, token));
+        }
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
   }
 
   if (isLoading) return <Loading />
@@ -73,11 +121,9 @@ export const Cart = () => {
             <div className="d-flex justify-content-between align-items-center p-5">
               <p className="">Total Amount: <b>₹ {total}</b></p>
               <div>
-                <Link to={"/checkout"}>
-                <Button variant="secondary">
+                <Button onClick={handleCartCheckout} variant="secondary">
                   Checkout
                 </Button>
-                </Link>
               </div>
             </div>
           </>
