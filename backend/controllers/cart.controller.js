@@ -41,8 +41,6 @@ exports.updateCart = async (req, res) => {
       { quantity: item.quantity },
     );
 
-    console.log("updateCart", updatedCart);
-
     if (!updatedCart) {
       return res.status(404).json({ success: false, error: "Cart item not found" });
     }

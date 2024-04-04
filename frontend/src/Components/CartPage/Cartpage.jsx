@@ -9,52 +9,45 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export const Cart = () => {
+  const dispatch = useDispatch();
+
+  const [quantity, setQuantity] = useState(1);
   const token = useSelector((state) => state.token.token);
   const { cart, isLoading, error } = useSelector((state) => state.cartData);
   let total = cart.reduce((acc, curr) => acc + (curr.productId.price * curr.quantity), 0)
-  const [quantity, setQuantity] = useState(1);
 
   const incrementQuantity = async(e) => {
     e.quantity += 1;
-
-    let data = {
-      productId: e._id,
-      quantity: e.quantity 
-    };
-
-    await axios.post(`${process.env.BASEURL}/cart/updateCart`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    });
-
+    updateProduct({ productId: e._id, quantity: e.quantity })
     setQuantity(e.quantity + 1);
   };
 
-  const decrementQuantity = async(e) => {
+  const decrementQuantity = async (e) => {
     e.quantity -= 1;
-    let data = {
-      productId: e._id,
-      quantity: e.quantity 
-    };
-
-   await axios.post(`${process.env.BASEURL}/cart/updateCart`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    });
+    updateProduct({ productId: e._id, quantity: e.quantity })
     setQuantity(e.quantity - 1);
   };
-
-  const dispatch = useDispatch();
 
   const dlt = (id, index) => {
     dispatch(deleteCartData(id, token))
     cart.splice(index, 1)
   }
 
+
+  const updateProduct = async (data) => {
+    try {
+      return await axios.post(`${process.env.BASEURL}/cart/updateCart`, data, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+    } catch (error) {
+      console.log("Quantity update error:", error);
+      throw error;
+    }
+  }
+  
   const handleCartCheckout = () => {
     try {
       let data = {
