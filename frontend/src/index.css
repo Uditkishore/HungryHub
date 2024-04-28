@@ -4,10 +4,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
-  background-size: cover;
-  background-repeat: repeat-y;
-  backdrop-filter: blur(2px);
 }
 
 code {

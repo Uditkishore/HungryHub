@@ -1,16 +1,3 @@
 .image-design{
-    background-color: #fff; /* Set your desired background color here */
-    display: inline-block;
-    padding: 50px;
-    height: 550px;
-    background-size:contain;
-}
-
-.productImageContainer{
     background-color: #fff;
-    border-radius: 10px;
-}
-
-.container{
-    color: white;
 }
