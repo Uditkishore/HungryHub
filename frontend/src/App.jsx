@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from "react";
 import { fetchData } from "./Redux/Products/action";
 import { fetchCartData } from "./Redux/Cart/action";
+import './app.css'
 
 function App() {
   const token = useSelector((state) => state.token.token);

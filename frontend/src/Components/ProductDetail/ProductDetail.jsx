@@ -16,7 +16,7 @@ export const Productpage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const {cart} = useSelector((state) => state.cartData);
+  const { cart } = useSelector((state) => state.cartData);
   const singleData = useSelector((store) => store.singleProduct.item);
   const isLoading = useSelector((state) => state.singleProduct.isLoading);
   const { token } = useSelector((state) => state.token);
@@ -34,11 +34,11 @@ export const Productpage = () => {
   const handleCart = async (product) => {
     let data = {
       productId: product._id,
-      quantity: quantity 
+      quantity: quantity
     };
-  
+
     const exists = cart.find(item => item.productId._id === product._id);
-  
+
     if (exists) {
       toast.info('🦄 Product already exists.');
     } else {
@@ -49,7 +49,7 @@ export const Productpage = () => {
       }
     }
   };
-  
+
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
@@ -68,9 +68,15 @@ export const Productpage = () => {
         <ToastContainer />
         <div className="row">
           <div className="col-lg-6">
-            <div className="productImageContainer">
-              <Carousel>
-                <Carousel.Item className="border rounded">
+            <div className="productImageContainer carousel slide" data-ride="carousel">
+              <Carousel className="carousel-inner">
+                <Carousel.Item className="carousel-item active border rounded">
+                  <img className="d-block w-100" src={singleData.image} alt="Product" />
+                </Carousel.Item>
+                <Carousel.Item className="carousel-item border rounded">
+                  <img className="d-block w-100" src={singleData.image} alt="Product" />
+                </Carousel.Item>
+                <Carousel.Item className="carousel-item border rounded">
                   <img className="d-block w-100" src={singleData.image} alt="Product" />
                 </Carousel.Item>
               </Carousel>

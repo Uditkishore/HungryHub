@@ -1,38 +1,126 @@
-.card_details {
-  background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+.cart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 10px;
+  min-height: 600px;
 }
 
-.table_row {
-  border-bottom: 1px solid #ddd;
+.cart-container > div:nth-child(1) {
+  width: 100%; /* Initially, take full width on small screens */
+  overflow-x: auto; /* Enable horizo
+  ntal scrolling on small screens */
 }
 
-.card {
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+.cart-container > div:nth-child(2) {
+  width: 100%; /* Initially, take full width on small screens */
+}
+
+.heading {
+  padding: 28px;
+}
+
+.table_container {
+  max-height: 488px; /* Adjust the maximum height as needed */
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.row {
+  margin: auto;
+}
+
+.table-data {
+  align-content: center;
+  text-align: center;
 }
 
 .cart-table {
-  width: 100%;
+  width: 100%; /* Make the table take full width */
+  border-collapse: collapse;
 }
 
-@media only screen and (max-width: 768px) {
+.cart-table th,
+.cart-table td {
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word; /* Allow long words to break and wrap */
+}
+
+.table-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.table-counter button {
+  margin: 0 5px; /* Add space between buttons */
+}
+
+.cart-lef-div > div {
+  width: 100%; /* Make the cart total section take full width */
+  height: auto; /* Adjust height automatically */
+  /* border: 1px solid green; */
+}
+.borders{
+  border: 0.5px dotted gray;
+  border-left: none;
+  border-right: none;
+}
+.borderBot{
+  border-bottom: 0.5px dotted gray;
+}
+.small-card{
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+/* Media query for tablets and larger screens */
+@media screen and (min-width: 768px) {
+  .cart-container > div:nth-child(1) {
+    width: 60%; /* Adjust width for larger screens */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+  }
   .cart-table th,
   .cart-table td {
-    flex-direction: column;
-    align-items: flex-start;
+    font-size: 21px; /* Decrease font size for small screens */
+    padding: 5px; /* Decrease padding for small screens */
   }
 
-  .cart-table th::before {
-    content: attr(data-label);
-    font-weight: bold;
-    margin-right: 10px;
+  .cart-container > div:nth-child(2) {
+    width: 35%; /* Adjust width for larger screens */
+    margin-top: 0; /* Remove margin on larger screens */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .borders{
+    border: none;
+  }
+  .cart-container {
+    margin: auto;
+  }
+  .table_container {
+    overflow: auto;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
   }
 
-  .card_details {
-    padding: 10px;
+  .table_container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+  .cart-table th,
+  .cart-table td {
+    font-size: 10px; /* Further decrease font size for extra small screens */
+  }
+
+  .table-counter {
+    flex-direction: column; /* Stack buttons and number vertically */
+    align-items: center; /* Center items horizontally */
+  }
+
+  .table-counter button {
+    margin: 5px 0; /* Adjust margin for vertical stacking */
   }
 }
