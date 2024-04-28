@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Select from 'react-select';
 
-const SortBy = ({ inputValue, options, placeholder }) => {
+const InputSelect = ({ inputValue, options, placeholder }) => {
   const [query, setQuery] = useState('');
 
   const getValue = (selectedOption) => {
@@ -20,4 +20,4 @@ const SortBy = ({ inputValue, options, placeholder }) => {
   );
 };
 
-export default SortBy;
+export default InputSelect;

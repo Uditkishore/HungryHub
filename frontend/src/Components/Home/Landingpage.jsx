@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router";
 import { ProductCard } from "./product";
 import Loading from "../loading";
-import SortBy from "./sortBy";
+import InputSelect from "./Select";
 import "./Landingpage.css"
 
 const sortingOption = [
@@ -56,31 +56,31 @@ export const Homepage = () => {
 
   if (isLoading) return <Loading />
   return (
-    <div className="container h-100 mt-3">
+    <div className="main container h-100 mt-3">
       <div className="row bg justify-content-between align-items-center gap-2">
         <div className="col-md-12 col-lg-5 py-2">
           <input type="email" value={search} onChange={(e) => setSearch(e.target.value)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search Dishes" />
         </div>
         <div className="col-md-12 col-lg-3">
-          <SortBy options={filterData} inputValue={handleProductFilter} placeholder={"Select Catagory..."} />
+          <InputSelect options={filterData} inputValue={handleProductFilter} placeholder={"Select Catagory..."} />
         </div>
         <div className="shortBy col-md-12 col-lg-3">
-          <SortBy options={sortingOption} inputValue={handleProductShorting} placeholder={"Filter Dishes..."} />
+          <InputSelect options={sortingOption} inputValue={handleProductShorting} placeholder={"Filter Dishes..."} />
         </div>
       </div>
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mt-3">
+      <div className="product-container row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 justify-content-center mt-3">
         {filteredProducts && filteredProducts.length > 0
           ? filteredProducts
             .filter((product) =>
               product.name.toLowerCase().includes(search.toLowerCase())
             ).map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              onClick={() => handleProductClick(product._id)}
-            />
-          ))
+              <ProductCard
+                key={product._id}
+                product={product}
+                onClick={() => handleProductClick(product._id)}
+              />
+            ))
           : products
             .filter((product) =>
               product.name.toLowerCase().includes(search.toLowerCase())

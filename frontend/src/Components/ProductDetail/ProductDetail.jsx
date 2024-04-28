@@ -8,7 +8,7 @@ import axios from "axios";
 import { addToCart } from "../../Redux/Cart/action";
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "../loading";
-
+import './productDetails.css'
 export const Productpage = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -71,13 +71,13 @@ export const Productpage = () => {
             <div className="productImageContainer carousel slide" data-ride="carousel">
               <Carousel className="carousel-inner">
                 <Carousel.Item className="carousel-item active border rounded">
-                  <img className="d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
                 </Carousel.Item>
                 <Carousel.Item className="carousel-item border rounded">
-                  <img className="d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
                 </Carousel.Item>
                 <Carousel.Item className="carousel-item border rounded">
-                  <img className="d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
                 </Carousel.Item>
               </Carousel>
             </div>

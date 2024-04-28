@@ -5,12 +5,12 @@ export const ProductCard = ({ product, onClick }) => {
 
   return (
     <div className="col mb-4">
-      <Card className="card_style shadow" onClick={onClick}>
+      <Card className="card_style px-1 shadow" onClick={onClick}>
         <Card.Img
           variant="top"
           src={product.image}
           style={{ height: "16rem" }}
-          className="mt-3 object-cover"
+          className="mt-3 object-contain"
         />
         <Card.Body>
           <div className="d-flex justify-content-between align-items-center">
