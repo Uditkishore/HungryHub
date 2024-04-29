@@ -9,6 +9,7 @@ import { addToCart } from "../../Redux/Cart/action";
 import { ToastContainer, toast } from 'react-toastify';
 import Loading from "../loading";
 import './productDetails.css'
+import { BtnCustom } from "../button";
 export const Productpage = () => {
   const [quantity, setQuantity] = useState(1);
 
@@ -104,8 +105,9 @@ export const Productpage = () => {
                   <button className="btn btn-outline-secondary" type="button" onClick={incrementQuantity} > + </button>
                 </div>
               </div>
-              <div className="buttonDiv">
-                <Button onClick={() => handleCart(singleData)} variant="primary" className="w-100" > Add to Cart </Button>
+              <div className="row w-100">
+              <BtnCustom onClick={() => handleCart(singleData)} name={'Add to Cart'}/>
+                {/* <Button  variant="primary" className="w-100" > Add to Cart </Button> */}
               </div>
             </div>
           </div>

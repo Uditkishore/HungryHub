@@ -8,6 +8,7 @@ import Loading from "../loading";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
+import { BtnCustom } from "../button";
 
 export const Cart = () => {
   const dispatch = useDispatch();
@@ -180,11 +181,8 @@ export const Cart = () => {
           <div className="col-6 text-end">₹<b>{Math.floor(total + (total * .05) - (total * .15) + 40)}</b></div>
         </div>
         <div className="row w-100">
-          <div onClick={() => decrementQuantity(element)} className="col mt-5 btn btn-outline-dark">
-            Checkout
-          </div>
+          <BtnCustom onClick={()=> decrementQuantity(element)} name={'Checkout'}/>
         </div>
-
       </div>
     </div>
   );
