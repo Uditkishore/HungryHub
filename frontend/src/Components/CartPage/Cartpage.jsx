@@ -181,7 +181,7 @@ export const Cart = () => {
           <div className="col-6 text-end">₹<b>{Math.floor(total + (total * .05) - (total * .15) + 40)}</b></div>
         </div>
         <div className="row w-100">
-          <BtnCustom onClick={()=> decrementQuantity(element)} name={'Checkout'}/>
+          <BtnCustom className={"col mt-5 btn btn-outline-dark"} onClick={()=> decrementQuantity(element)} name={'Checkout'}/>
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import { BtnCustom } from "../button";
 
 export const ProductCard = ({ product, onClick }) => {
   const stars = "★".repeat(product.rating);
@@ -9,7 +10,7 @@ export const ProductCard = ({ product, onClick }) => {
         <Card.Img
           variant="top"
           src={product.image}
-          style={{ height: "16rem" }}
+          style={{ height: "11rem" }}
           className="mt-3 object-contain"
         />
         <Card.Body>
@@ -31,6 +32,9 @@ export const ProductCard = ({ product, onClick }) => {
             </small>
           </div>
           <Card.Text>{product.category}</Card.Text>
+          <div className="row w-100">
+            <BtnCustom className={"col btn btn-outline-dark"} name={'Add to Cart'} />
+          </div>
         </Card.Body>
       </Card>
     </div>

@@ -106,8 +106,7 @@ export const Productpage = () => {
                 </div>
               </div>
               <div className="row w-100">
-              <BtnCustom onClick={() => handleCart(singleData)} name={'Add to Cart'}/>
-                {/* <Button  variant="primary" className="w-100" > Add to Cart </Button> */}
+              <BtnCustom className={"col font-bold fw-bolder mt-5 btn btn-outline-dark"} onClick={() => handleCart(singleData)} name={'Proceed Next'}/>
               </div>
             </div>
           </div>

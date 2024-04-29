@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const BtnCustom = ({onClick, name}) => {
+export const BtnCustom = ({onClick, name,  className}) => {
     return (
-        <div onClick={onClick} className="col mt-5 btn btn-outline-dark">
+        <div onClick={onClick} className={className}>
             {name}
         </div>
     )
