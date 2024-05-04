@@ -54,7 +54,7 @@ export const Headers = (props) => {
                       vertical: "top",
                       horizontal: "right",
                     }}
-                    className="m-3 mt-sm-0 cart-icon cursor-pointer"
+                    className="m-3 m-sm-0 cart-icon cursor-pointer"
                   >
                     <i
                       className="fa-solid fa-cart-shopping text-light"
