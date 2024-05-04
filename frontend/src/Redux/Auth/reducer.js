@@ -12,7 +12,7 @@ const authReducer = (state = initState, { type, payload }) => {
       return {
         ...state, token: null, loading: true
       };
-    case types.LOGIN_SUCCESS:
+      case types.LOGIN_SUCCESS:
       localStorage.setItem("token", JSON.stringify(payload.token));
       return {
         ...state, token: payload.token, loading: false,

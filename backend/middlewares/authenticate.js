@@ -34,6 +34,7 @@ exports.authenticateUser = async (req, res, next) => {
 
     if (decoded) {
       req.user = decoded.userId,
+      req.userDetails = decoded,
       req.token = token;
       return next();
     };

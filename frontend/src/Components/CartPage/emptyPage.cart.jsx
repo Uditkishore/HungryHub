@@ -26,7 +26,7 @@ const EmptycartPage = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container mx-auto mt-8 p-5 rounded">
+                <div style={{height : '600px'}} className="container mx-auto mt-8 p-5 rounded">
                     <div className="bg-white p-8 rounded-lg shadow-md">
                         <div className="bg-gray-100 p-4 rounded-lg">
                             <p className="text-lg">Your cart is empty.</p>

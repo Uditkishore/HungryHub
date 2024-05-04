@@ -34,18 +34,31 @@ const AdminPage = () => {
   };
 
   return (
-    <div className='container'>
-      <h2>Add Product</h2>
+    <div style={{ height: "600px" }} className='container'>
+      <h2 className='m-3'>Add New Product</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-        <input type="text" name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
-        <input type="number" name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
-        <input type="number" name="rating" placeholder="Rating" value={formData.rating} onChange={handleChange} required />
-        <input type="number" name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
-        <input type="text" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
-        <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-        <br />
-        <button type="submit">Add Product</button>
+        <div className="form-group mb-3">
+          <input type="text" className="form-control" name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <input type="text" className="form-control" name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <input type="number" className="form-control" name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <input type="number" className="form-control" name="rating" placeholder="Rating" value={formData.rating} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <input type="number" className="form-control" name="quantity" placeholder="Quantity" value={formData.quantity} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <input type="text" className="form-control" name="image" placeholder="Image URL" value={formData.image} onChange={handleChange} required />
+        </div>
+        <div className="form-group mb-3">
+          <textarea className="form-control" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
+        </div>
+        <button type="submit" className="btn btn-primary mt-3">Add Product</button>
       </form>
     </div>
   );

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Badge from "@mui/material/Badge";
 import { Nav, Navbar, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../Redux/Auth/action";
 
-export const Headers = () => {
+export const Headers = (props) => {
+  const [expanded, setExpanded] = useState(false); // State to control navbar collapse
   const cartData = useSelector((e) => e.cartData);
   const { token } = useSelector((state) => state.token);
 
@@ -19,7 +20,7 @@ export const Headers = () => {
 
   return (
     <>
-      <Navbar expand="lg" bg="dark" variant="dark">
+      <Navbar expand="lg" bg="dark" variant="dark" expanded={expanded}> {/* Control navbar collapse using expanded state */}
         <Container fluid>
           <Navbar.Brand>
             <div className="d-flex align-items-center">
@@ -32,10 +33,11 @@ export const Headers = () => {
               <span className="logo-text">Zaika</span>
             </div>
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} /> {/* Toggle navbar collapse */}
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto px-5 gap-2 align-items-center">
-              <Nav.Link className="mx-3 pointer" onClick={() => navigate("/")}>Home</Nav.Link>
+              <Nav.Link className="mx-3 pointer" onClick={() => { navigate("/"); setExpanded(false); }}>Home</Nav.Link> {/* Close navbar on selection */}
+              {props.isAdmin && <Nav.Link className="mx-3 pointer" onClick={() => { navigate("/admin"); setExpanded(false); }}>Add Product</Nav.Link>}
               {token ? (
                 <>
                   <Nav.Link className="mx-3 pointer" onClick={logoutBtn}>
@@ -44,7 +46,7 @@ export const Headers = () => {
                   <Badge
                     id="basic-button"
                     aria-haspopup="true"
-                    onClick={() => navigate("/cart")}
+                    onClick={() => { navigate("/cart"); setExpanded(false); }}
                     badgeContent={cartData.cart.length}
                     color="primary"
                     overlap="circular"
@@ -52,7 +54,7 @@ export const Headers = () => {
                       vertical: "top",
                       horizontal: "right",
                     }}
-                    className="cart-icon coursor-pointer"
+                    className="m-3 mt-sm-0 cart-icon cursor-pointer"
                   >
                     <i
                       className="fa-solid fa-cart-shopping text-light"
@@ -64,13 +66,13 @@ export const Headers = () => {
                 <>
                   <Nav.Link
                     className="mx-3 pointer"
-                    onClick={() => navigate("/login")}
+                    onClick={() => { navigate("/login"); setExpanded(false); }}
                   >
                     Login
                   </Nav.Link>
                   <Nav.Link
                     className="mx-3 pointer"
-                    onClick={() => navigate("/signup")}
+                    onClick={() => { navigate("/signup"); setExpanded(false); }}
                   >
                     Signup
                   </Nav.Link>

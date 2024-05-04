@@ -5,7 +5,6 @@ import EmptycartPage from "./emptyPage.cart";
 import "./cart.css"
 import { deleteCartData } from "../../Redux/Cart/action";
 import Loading from "../loading";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { BtnCustom } from "../button";
@@ -32,10 +31,10 @@ export const Cart = () => {
     setQuantity(e.quantity - 1);
   };
 
-  const dlt = (id, index) => {
-    dispatch(deleteCartData(id, token))
+  const dlt = (item, index) => {
+    dispatch(deleteCartData(item._id, token))
     cart.splice(index, 1)
-  }  
+  }
 
   const updateProduct = async (data) => {
     try {
@@ -74,7 +73,7 @@ export const Cart = () => {
     }
   }
 
-  if (isLoading) return <Loading />
+  if (cart.length === 0) return <EmptycartPage />
   return (
     <div className="cart-container">
       <div className="cart-items">
@@ -91,7 +90,7 @@ export const Cart = () => {
             {cart.map((element, index) => {
               const item = element.productId;
               return (
-                <div className="row borders" key={index}>
+                <div className="row borders" key={element._id}>
                   <div className="table-data col-md-4 col-sm-6">
                     <img className="img-fluid" src={item.image} alt="..." />
                   </div>
@@ -102,7 +101,7 @@ export const Cart = () => {
                     <h6>{element.quantity}</h6>
                     <button className="btn btn-outline-primary" onClick={() => incrementQuantity(element)}>+</button>
                   </div>
-                  <div onClick={() => dlt(element)} className="table-data col-md-1 col-sm-6">
+                  <div onClick={() => dlt(element, index)} className="table-data col-md-1 col-sm-6">
                     <MdDelete />
                   </div>
                 </div>
@@ -116,7 +115,7 @@ export const Cart = () => {
             {cart.map((element, index) => {
               const item = element.productId;
               return (
-                <div className="shadow my-3 my-sm-none m-sm-2">
+                <div key={index} className="shadow my-3 my-sm-none m-sm-2">
                   <div>
                     <img className="card-img-top" src={item.image} />
                   </div>
@@ -181,7 +180,7 @@ export const Cart = () => {
           <div className="col-6 text-end">₹<b>{Math.floor(total + (total * .05) - (total * .15) + 40)}</b></div>
         </div>
         <div className="row w-100">
-          <BtnCustom className={"col mt-5 btn btn-outline-dark"} onClick={()=> decrementQuantity(element)} name={'Checkout'}/>
+          <BtnCustom className={"col mt-5 btn btn-outline-dark"} onClick={() => decrementQuantity(element)} name={'Checkout'} />
         </div>
       </div>
     </div>

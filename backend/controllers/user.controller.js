@@ -10,12 +10,12 @@ exports.login = async (req, res) => {
     // Generate a token
     const token = jwt.sign({ userId: user._id }, "your-secret-key");
 
-    if(!token) return res.status(401).json({ success : false, message : "Token Expired." });
+    if (!token) return res.status(401).json({ success: false, message: "Token Expired." });
 
     return res.status(201).json({
-      success : false,
+      success: true,
       token,
-      user : user.roles
+      user: user.roles
     });
   } catch (error) {
     console.error("Login error:", error.message);
@@ -45,6 +45,28 @@ exports.signup = async (req, res) => {
     return res.status(500).send("Something went wrong.");
   }
 };
+
+exports.getUser = async (req, res) => {
+  let { userId, iat } = req.userDetails
+  try {
+    const userDatil = await User.findOne(
+      {
+        _id: userId
+      },
+      {
+        username: true,
+        email: true,
+        roles: true,
+        mobileNumber: true,
+        profileImage: true,
+      }
+    )
+    res.status(200).json({ status: true, data: userDatil })
+    return;
+  } catch (error) {
+    console.log("error", error);
+  }
+}
 
 exports.getAllUser = async (req, res) => {
   try {

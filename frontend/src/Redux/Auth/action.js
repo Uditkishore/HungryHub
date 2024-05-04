@@ -32,7 +32,6 @@ export const clearUser = (payload) => {
 export const loginUser = (payload) => (dispatch) => {
   dispatch(loginRequest());
   const { email, password } = payload;
-
   axios.post(`${process.env.BASEURL}/user/login`, { email, password })
     .then((res) => {
       dispatch(loginSuccess(res.data)); 

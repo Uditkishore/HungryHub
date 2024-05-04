@@ -6,7 +6,6 @@ const { storage, fileFilter, limits } = require("../utils/multer-config");
 const {
   authenticateUser,
   compairPassword,
-  checkDuplicateUser,
 } = require("../middlewares/authenticate");
 
 const upload = multer({ storage, fileFilter, limits });
@@ -24,6 +23,7 @@ router.post(
 );
 router.post("/login", compairPassword, userController.login);
 router.get("/getAll", authenticateUser, userController.getAllUser);
+router.get("/getUser", authenticateUser, userController.getUser);
 
 router.use(errorHandler);
 
