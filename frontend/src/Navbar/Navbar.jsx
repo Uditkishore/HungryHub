@@ -16,6 +16,7 @@ export const Headers = (props) => {
   const logoutBtn = (e) => {
     dispatch(clearUser(""));
     navigate("/");
+    window.location.reload();
   };
 
   return (

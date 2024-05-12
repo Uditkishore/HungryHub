@@ -3,9 +3,6 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 6500,
-  },
   define: {
     'process.env.BASEURL': JSON.stringify(process.env.BASEURL || 'http://localhost:8080'),
   },
