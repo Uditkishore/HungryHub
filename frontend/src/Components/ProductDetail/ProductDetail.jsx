@@ -72,13 +72,13 @@ export const Productpage = () => {
             <div className="productImageContainer carousel slide" data-ride="carousel">
               <Carousel className="carousel-inner">
                 <Carousel.Item className="carousel-item active border rounded">
-                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
                 </Carousel.Item>
                 <Carousel.Item className="carousel-item border rounded">
-                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
                 </Carousel.Item>
                 <Carousel.Item className="carousel-item border rounded">
-                  <img className="image-design d-block w-100" src={singleData.image} alt="Product" />
+                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
                 </Carousel.Item>
               </Carousel>
             </div>
@@ -106,7 +106,7 @@ export const Productpage = () => {
                 </div>
               </div>
               <div className="row w-100">
-              <BtnCustom className={"col font-bold fw-bolder mt-5 btn btn-outline-dark"} onClick={() => handleCart(singleData)} name={'Proceed Next'}/>
+                <BtnCustom className={"col font-bold fw-bolder mt-5 btn btn-outline-dark"} onClick={() => handleCart(singleData)} name={'Proceed Next'} />
               </div>
             </div>
           </div>

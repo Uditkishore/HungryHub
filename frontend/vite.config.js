@@ -6,4 +6,7 @@ export default defineConfig({
   define: {
     'process.env.BASEURL': JSON.stringify(process.env.BASEURL || 'http://localhost:8080'),
   },
+  env : {
+    file : './.env'
+  }
 });

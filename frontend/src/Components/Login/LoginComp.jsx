@@ -17,10 +17,10 @@ const LoginComp = ({ HandleLogin }) => {
   };
 
   const userData = () => {
-    if (user && user.email && user.email.length > 2 && user.password && user.password.length > 5) {
+    if (user && user.email && user.email.length > 2 && user.password && user.password.length >= 5) {
       return HandleLogin(user);
     } else {
-      toast("A field shouldn't be left blank.");
+      toast("Email and password format is incorrect.");
     }
   };
 

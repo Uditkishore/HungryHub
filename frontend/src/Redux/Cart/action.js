@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as types from "./actionType";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 const fetchCartReq = (payload) => {

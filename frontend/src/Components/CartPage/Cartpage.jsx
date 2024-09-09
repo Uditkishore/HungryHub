@@ -92,7 +92,11 @@ export const Cart = () => {
               return (
                 <div className="row borders" key={element._id}>
                   <div className="table-data col-md-4 col-sm-6">
-                    <img className="img-fluid" src={item.image} alt="..." />
+                    <img
+                      className="img-fluid"
+                      src={`${process.env.BASEURL}/${item.image}`}
+                      alt={item.name || 'Product Image'}
+                    />
                   </div>
                   <div className="table-data col-md-2 col-sm-6">{item.name}</div>
                   <div className="table-data col-md-2 col-sm-6">{item.price * element.quantity}/-</div>
@@ -117,7 +121,7 @@ export const Cart = () => {
               return (
                 <div key={index} className="shadow my-3 my-sm-none m-sm-2">
                   <div>
-                    <img className="card-img-top" src={item.image} />
+                    <img className="card-img-top" src={`${process.env.BASEURL}/${item.image}`} />
                   </div>
                   <div className="row">
                     <div className="col">

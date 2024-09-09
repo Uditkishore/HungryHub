@@ -15,6 +15,7 @@ import AdminPage from "../Components/addProduct";
 import axios from "axios";
 import { fetchData } from "../Redux/Products/action";
 import { fetchCartData } from "../Redux/Cart/action";
+import LandingPage from "../Components/LandingPage/landingPage";
 
 export const Router = () => {
 
@@ -31,6 +32,7 @@ export const Router = () => {
           'Authorization': `Bearer ${token}`
         }
       })
+
       if (data.status && data.data.roles === 'admin') setAdmin(true)
       dispatch(fetchCartData(token))
     } catch (error) {
@@ -43,13 +45,14 @@ export const Router = () => {
     if (token) {
       getUserDetails(token)
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
       <Headers isAdmin={isAdmin} />
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/product" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
