@@ -3,24 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 // Middleware to handle authentication
-exports.compairPassword = async (req, res, next) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).send("Incorrect email or password.");
-    }
-
-    req.authUser = user;
-    next();
-  } catch (error) {
-    console.error("Authentication error:", error.message);
-    return res.status(500).send("Something went wrong");
-  }
-};
-
 exports.authenticateUser = async (req, res, next) => {
   try {
 
@@ -45,24 +27,21 @@ exports.authenticateUser = async (req, res, next) => {
   }
 }
 
-// Middleware to check for duplicate user
-exports.checkDuplicateUser = async (req, res, next) => {
-  const { email, mobileNumber } = req.body;
+// Check for duplicate user inside database
+exports.checkExistingUser = async (req, res, next) => {
+  const { email, password } = req.body;
 
   try {
-    const userExist = await User.findOne({
-      $or: [{ email: email }, { mobileNumber: mobileNumber }],
-    });
+    const user = await User.findOne({ email });
 
-    if (userExist) {
-      return res
-        .status(401)
-        .send("User already exists with this email or mobile number.");
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      return res.status(401).send("Incorrect email or password.");
     }
 
+    req.authUser = user;
     next();
   } catch (error) {
-    console.error("Duplicate user check error:", error.message);
-    return res.status(500).send("Something went wrong.");
+    console.error("Authentication error:", error.message);
+    return res.status(500).send("Something went wrong");
   }
 };

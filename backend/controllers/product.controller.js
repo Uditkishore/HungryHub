@@ -1,24 +1,34 @@
 const Product = require("../models/product.model");
 
 exports.createProduct = async (req, res) => {
-  const { name, category, price, rating, quantity, image, description } = req.body;
   try {
+    const { name, category, price, rating, quantity, description } = req.body;
+
+    if (!req.file) {
+      return res.status(400).send({ success: false, message: "Image file is required" });
+    }
+
+    const imagePath = req.file.path;
+
     const product = new Product({
       name,
       category,
       price,
       rating,
       quantity,
-      image,
+      image: imagePath,
       description,
     });
+
     await product.save();
+
     return res.status(201).send({ success: true, data: product });
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).send(error);
+    console.error("Error creating product:", error.message);
+    return res.status(500).send({ success: false, message: "Server error", error: error.message });
   }
 };
+
 
 exports.getProducts = async (req, res) => {
   try {
