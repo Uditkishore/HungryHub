@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { ProductCard } from "./product";
 import Loading from "../loading";
 import InputSelect from "./Select";
-import "./Landingpage.css"
+import "./Landingpage.css";
 
 const sortingOption = [
   { value: "price ascPrice", label: 'Price low' },

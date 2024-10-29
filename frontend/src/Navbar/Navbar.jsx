@@ -31,7 +31,7 @@ export const Headers = (props) => {
                 alt=""
                 className="me-2"
               />
-              <span className="logo-text">Zaika</span>
+              <span className="logo-text">♞🔥  𝓑ｕ𝕐ᶤ丅  ♛👹</span>
             </div>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} /> {/* Toggle navbar collapse */}

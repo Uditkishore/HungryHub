@@ -69,18 +69,9 @@ export const Productpage = () => {
         <ToastContainer />
         <div className="row">
           <div className="col-lg-6">
+
             <div className="productImageContainer carousel slide" data-ride="carousel">
-              <Carousel className="carousel-inner">
-                <Carousel.Item className="carousel-item active border rounded">
-                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
-                </Carousel.Item>
-                <Carousel.Item className="carousel-item border rounded">
-                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
-                </Carousel.Item>
-                <Carousel.Item className="carousel-item border rounded">
-                  <img className="image-design d-block w-100" src={`http://localhost:8080/${product.image}`} alt="Product" />
-                </Carousel.Item>
-              </Carousel>
+              <img src={`${process.env.BASEURL}/${singleData.image}`} />
             </div>
           </div>
           <div className="col-lg-6">

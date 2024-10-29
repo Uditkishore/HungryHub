@@ -7,13 +7,14 @@ exports.authenticateUser = async (req, res, next) => {
   try {
 
     var token = req.headers.authorization.split(' ')[1];
-    var decoded = jwt.verify(token, "your-secret-key");
 
+    var decoded = jwt.verify(token, "your-secret-key");
+    
     if (!decoded) {
       req.isAuth = false;
       return res.status(401).json({ status: false, msg: "Unauthorized" });
     }
-
+    
     if (decoded) {
       req.user = decoded.userId,
       req.userDetails = decoded,

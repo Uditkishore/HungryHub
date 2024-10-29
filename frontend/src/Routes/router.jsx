@@ -16,6 +16,7 @@ import axios from "axios";
 import { fetchData } from "../Redux/Products/action";
 import { fetchCartData } from "../Redux/Cart/action";
 import LandingPage from "../Components/LandingPage/landingPage";
+import ScrollToTop from "../scrollToTop";
 
 export const Router = () => {
 
@@ -50,6 +51,7 @@ export const Router = () => {
   return (
     <>
       <Headers isAdmin={isAdmin} />
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/product" element={<Homepage />} />

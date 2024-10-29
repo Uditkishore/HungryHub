@@ -1,4 +1,5 @@
 const Product = require("../models/product.model");
+const Cart = require("../models/cart.model");
 
 exports.createProduct = async (req, res) => {
   try {
@@ -29,10 +30,29 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-
 exports.getProducts = async (req, res) => {
   try {
     const products = await Product.find().lean().exec();
+    return res.status(200).send({ success: true, data: products });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send(error);
+  }
+};
+
+exports.topRatedProducts = async (req, res) => {
+  try {
+    const products = await Product.aggregate([
+      {
+        '$match': {
+          'rating': {
+            '$gte': 4
+          }
+        }
+      }, {
+        '$limit': 4
+      }
+    ]);
     return res.status(200).send({ success: true, data: products });
   } catch (error) {
     console.log(error.message);
@@ -81,6 +101,50 @@ exports.deleteProduct = async (req, res) => {
       return res.status(404).send({ success: false, message: "Product not found" });
     }
     return res.status(200).send({ success: true, data: deletedProduct });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).send(error);
+  }
+};
+
+exports.getCartItems = async (req, res) => {
+  try {
+    const products = await Cart.aggregate([
+      {
+        '$lookup': {
+          'from': 'users',
+          'localField': 'userId',
+          'foreignField': '_id',
+          'as': 'userDetails'
+        }
+      }, {
+        '$unwind': {
+          'path': '$userDetails'
+        }
+      }, {
+        '$lookup': {
+          'from': 'products',
+          'localField': 'productId',
+          'foreignField': '_id',
+          'as': 'productDetails'
+        }
+      }, {
+        '$unwind': {
+          'path': '$productDetails'
+        }
+      }, {
+        '$project': {
+          'productName': '$productDetails.name',
+          'productPrice': '$productDetails.price',
+          'quantity': 1,
+          'userName': '$userDetails.username',
+          'userEmail': '$userDetails.email',
+          'mobileNumber': '$userDetails.mobileNumber'
+        }
+      }
+    ])
+
+    return res.status(200).send({ success: true, data: products });
   } catch (error) {
     console.log(error.message);
     return res.status(500).send(error);

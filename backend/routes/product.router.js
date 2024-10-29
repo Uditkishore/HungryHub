@@ -18,6 +18,10 @@ router.post("/create", authenticateUser, upload.single('file'), productControlle
 
 router.get("/products", productController.getProducts);
 
+router.get("/cartItems", productController.getCartItems);
+
+router.get("/top-products", productController.topRatedProducts);
+
 router.get("/detail/:id", productController.getSingleProduct);
 
 router.put("/product/:id", authenticateUser, upload.single('file'), productController.updateProduct);
