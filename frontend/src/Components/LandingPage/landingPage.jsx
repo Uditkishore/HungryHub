@@ -37,7 +37,9 @@ const LandingPage = () => {
                     )
                 })}
             </div>
-            <Link to={"/product"} className='text-end'>view more...</Link>
+            <div className='text-end mx-3'>
+                <Link to={"/product"} className={styles.link}>view more...</Link>
+            </div>
         </div>
     )
 }
