@@ -5,15 +5,18 @@ import axios from 'axios';
 import { ProductCard } from '../Home/product';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import Loading from '../loading';
 
 const LandingPage = () => {
     const [topProducts, setTopProducts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate();
 
     const getTopProducts = async () => {
         try {
             let { data } = await axios(`${process.env.BASEURL}/product/top-products`);
             setTopProducts(data.data)
+            setIsLoading(false)
         } catch (error) {
             console.log("topProductError", error.message)
         }
@@ -29,6 +32,7 @@ const LandingPage = () => {
         getTopProducts()
     }, [])
 
+    if (isLoading) return <Loading />
     return (
         <div className={styles.main}>
             <CarouselComponent />
