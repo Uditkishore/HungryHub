@@ -49,19 +49,20 @@ exports.signup = async (req, res) => {
 exports.getUser = async (req, res) => {
   let { userId, iat } = req.userDetails
   try {
-    const userDatil = await User.findOne(
+    const userDetail = await User.findOne(
+      { _id: userId },
       {
-        _id: userId
-      },
-      {
-        username: true,
-        email: true,
-        roles: true,
-        mobileNumber: true,
-        profileImage: true,
+        username: 1,
+        email: 1,
+        roles: 1,
+        mobileNumber: 1,
+        profileImage: 1,
       }
-    )
-    res.status(200).json({ status: true, data: userDatil })
+    );
+
+    console.log("userDEt", userDetail)
+
+    res.status(200).json({ status: true, data: userDetail })
     return;
   } catch (error) {
     console.log("error", error);

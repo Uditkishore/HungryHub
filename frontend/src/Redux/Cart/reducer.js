@@ -3,7 +3,7 @@ import * as types from "./actionType";
 const initState = {
   cart: [],
   error: false,
-  isLoading: true,
+  isLoading: false,
 };
 
 const reducer = (state = initState, action) => {

@@ -31,7 +31,7 @@ export const Headers = (props) => {
                 alt=""
                 className="me-2"
               />
-              <span className="logo-text">♞🔥  𝓑ｕ𝕐ᶤ丅  ♛👹</span>
+              <span className="logo-text">𝓑ｕ𝕐ᶤ丅</span>
             </div>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} /> {/* Toggle navbar collapse */}
@@ -55,7 +55,7 @@ export const Headers = (props) => {
                       vertical: "top",
                       horizontal: "right",
                     }}
-                    className="m-3 m-sm-0 cart-icon cursor-pointer"
+                    className="m-3 m-sm-0 cart-icon btn"
                   >
                     <i
                       className="fa-solid fa-cart-shopping text-light"

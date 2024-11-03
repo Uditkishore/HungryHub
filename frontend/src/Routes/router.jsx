@@ -26,6 +26,7 @@ export const Router = () => {
   const dispatch = useDispatch();
 
   const getUserDetails = async (token) => {
+    console.log("token", token)
     try {
       const { data } = await axios.get(`${process.env.BASEURL}/user/getUser`, {
         headers: {
@@ -33,6 +34,8 @@ export const Router = () => {
           'Authorization': `Bearer ${token}`
         }
       })
+
+      console.log("data", data)
 
       if (data.status && data.data.roles === 'admin') setAdmin(true)
       dispatch(fetchCartData(token))

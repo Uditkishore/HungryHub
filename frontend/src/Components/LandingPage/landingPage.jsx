@@ -23,9 +23,7 @@ const LandingPage = () => {
     }
 
     const handleProductClick = (id) => {
-        console.log("product clicked")
         navigate(`/product/${id}`);
-
     }
 
     useEffect(() => {

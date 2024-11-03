@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Table, Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import EmptycartPage from "./emptyPage.cart";
 import "./cart.css"
@@ -151,6 +150,7 @@ export const Cart = () => {
           </div>
         </div>
       </div>
+      {/* Side Secton */}
       <div className="row cart-details">
         <div className="row mt-4 d-flex align-items-center m-auto">
           <div className="col-8">
