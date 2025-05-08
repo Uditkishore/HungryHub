@@ -38,15 +38,6 @@ export const Headers = (props) => {
           {/* Toggle navbar collapse */}
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto px-5 gap-2 align-items-center">
-              <Nav.Link
-                className="mx-3 pointer"
-                onClick={() => {
-                  navigate("/");
-                  setExpanded(false);
-                }}
-              >
-                Home
-              </Nav.Link>{" "}
               {/* Close navbar on selection */}
               {props.isAdmin && (
                 <Nav.Link
