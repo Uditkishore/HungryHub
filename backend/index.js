@@ -23,6 +23,6 @@ const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   connect();
-  console.log("You listening on 8080...");
+  console.log(`You listening on ${port}...`);
 });
 

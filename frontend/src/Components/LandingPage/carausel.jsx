@@ -2,7 +2,7 @@ import Carousel from 'react-bootstrap/Carousel';
 
 import styles from "./landingPage.module.css"
 
-function CarouselComponent() {
+function CarouselComponent({ carauselOne }) {
     return (
         <Carousel>
             <Carousel.Item>

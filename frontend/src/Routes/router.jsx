@@ -17,6 +17,7 @@ import { fetchData } from "../Redux/Products/action";
 import { fetchCartData } from "../Redux/Cart/action";
 import LandingPage from "../Components/LandingPage/landingPage";
 import ScrollToTop from "../scrollToTop";
+import MyBreadcrumb from "../Components/Breadcrum/breadCrum";
 
 export const Router = () => {
 
@@ -54,6 +55,7 @@ export const Router = () => {
   return (
     <>
       <Headers isAdmin={isAdmin} />
+      <MyBreadcrumb />
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
