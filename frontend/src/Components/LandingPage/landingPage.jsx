@@ -1,134 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import styles from "./landingPage.module.css"
-import CarouselComponent from './carausel'
+import React, { useEffect, useState } from 'react';
+import styles from './landingPage.module.css';
+import CarouselComponent from './carausel';
 import axios from 'axios';
 import { ProductCard } from '../Home/product';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import Loading from '../loading';
 
-const carauselOne = ["/images/carausel_1.jpg","/images/carausel_2.jpg","/images/carausel_3.jpg"]
+const carauselOne = ["/images/carausel_1.jpg", "/images/carausel_2.jpg", "/images/carausel_3.jpg"];
 
 const LandingPage = () => {
     const [topProducts, setTopProducts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     const getTopProducts = async () => {
         try {
-            let { data } = await axios(`${process.env.BASEURL}/product/top-products`);
-            setTopProducts(data.data)
-            setIsLoading(false)
+            const { data } = await axios(`${process.env.BASEURL}/product/top-products`);
+            setTopProducts(data.data);
+            setIsLoading(false);
         } catch (error) {
-            console.log("topProductError", error.message)
+            console.error("Top Product Error:", error.message);
         }
-    }
+    };
 
     const handleProductClick = (id) => {
         navigate(`/product/${id}`);
-    }
+    };
 
     useEffect(() => {
-        getTopProducts()
-    }, [])
+        getTopProducts();
+    }, []);
 
-    if (isLoading) return <Loading />
+    if (isLoading) return <Loading />;
+
     return (
         <div className={styles.main}>
             <CarouselComponent />
-            <div className='d-flex flex-wrap justify-content-between py-2'>
-                {topProducts.map((elem) => {
-                    const stars = "★".repeat(elem.rating);
-                    const title = elem.name.length > 20 ? elem.name.slice(0, 20) + "..." : elem.name;
+            <h2 className={styles.sectionTitle}>Top Rated Dishes</h2>
+            <div className={styles.productGrid}>
+                {topProducts.map((product) => {
+                    const stars = "★".repeat(product.rating);
+                    const title = product.name.length > 20 ? product.name.slice(0, 20) + "..." : product.name;
+
                     return (
-                        <Card key={elem._id} className="card_style shadow btn" onClick={() => handleProductClick(elem._id)}>
+                        <Card
+                            key={product._id}
+                            className={`${styles.card} shadow-sm`}
+                            onClick={() => handleProductClick(product._id)}
+                        >
                             <Card.Img
                                 variant="top"
-                                src={`${process.env.BASEURL}/${elem.image}`}
-                                style={{ height: "20rem", width: "280px" }}
-                                className="mt-3 object-contain"
+                                src={product.image}
+                                className={styles.cardImage}
                             />
                             <Card.Body>
-                                <Card.Title className='text-start'>{title}</Card.Title>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <Card.Text
-                                        className="font-weight-bold mb-0"
-                                        style={{
-                                            flexGrow: 1,
-                                            textAlign: "left",
-                                            padding: "0 10px" // Optional, adjust as needed
-                                        }}
-                                    >
-                                        Price: <b>₹ {elem.price}</b>
+                                <Card.Title className={styles.cardTitle}>{title}</Card.Title>
+                                <div className="d-flex justify-content-between align-items-center mt-2">
+                                    <Card.Text className={styles.cardPrice}>
+                                        ₹ <b>{product.price}</b>
                                     </Card.Text>
-                                    <Card.Text
-                                        className="text-center"
-                                        style={{
-                                            backgroundColor: "green",
-                                            color: "white",
-                                            padding: "2px 10px", // Adjust padding for better alignment
-                                            borderRadius: "4px",
-                                            fontSize: "0.9rem", // Optional font adjustment
-                                            whiteSpace: "nowrap", // Prevents text from wrapping
-                                        }}
-                                    >
+                                    <Card.Text className={styles.ratingBadge}>
                                         {stars}
                                     </Card.Text>
                                 </div>
-
                             </Card.Body>
                         </Card>
-                    )
-                })}
-            </div>
-            <CarouselComponent />
-            <div className='d-flex flex-wrap justify-content-between py-2'>
-                {topProducts.map((elem) => {
-                    const stars = "★".repeat(elem.rating);
-                    const title = elem.name.length > 20 ? elem.name.slice(0, 20) + "..." : elem.name;
-                    return (
-                        <Card key={elem._id} className="card_style shadow btn" onClick={() => handleProductClick(elem._id)}>
-                            <Card.Img
-                                variant="top"
-                                src={`${process.env.BASEURL}/${elem.image}`}
-                                style={{ height: "20rem", width: "280px" }}
-                                className="mt-3 object-contain"
-                            />
-                            <Card.Body>
-                                <Card.Title className='text-start'>{title}</Card.Title>
-                                <div className="d-flex justify-content-between align-items-center">
-                                    <Card.Text
-                                        className="font-weight-bold mb-0"
-                                        style={{
-                                            flexGrow: 1,
-                                            textAlign: "left",
-                                            padding: "0 10px" // Optional, adjust as needed
-                                        }}
-                                    >
-                                        Price: <b>₹ {elem.price}</b>
-                                    </Card.Text>
-                                    <Card.Text
-                                        className="text-center"
-                                        style={{
-                                            backgroundColor: "green",
-                                            color: "white",
-                                            padding: "2px 10px", // Adjust padding for better alignment
-                                            borderRadius: "4px",
-                                            fontSize: "0.9rem", // Optional font adjustment
-                                            whiteSpace: "nowrap", // Prevents text from wrapping
-                                        }}
-                                    >
-                                        {stars}
-                                    </Card.Text>
-                                </div>
-
-                            </Card.Body>
-                        </Card>
-                    )
+                    );
                 })}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default LandingPage
+export default LandingPage;

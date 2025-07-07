@@ -9,7 +9,7 @@ export const ProductCard = ({ product, onClick }) => {
       <Card className="card_style px-1 shadow" onClick={onClick}>
         <Card.Img
           variant="top"
-          src={`${process.env.BASEURL}/${product.image}`}
+          src={product.image}
           style={{ height: "15rem" }}
           className="mt-3 object-contain"
         />

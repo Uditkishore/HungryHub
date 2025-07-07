@@ -11,9 +11,8 @@ const MyBreadcrumb = () => {
       </Breadcrumb.Item>
 
       <Breadcrumb.Item style={{ cursor: "pointer" }} onClick={() => navigate("/product")}>
-        Clothing
+        Products
       </Breadcrumb.Item>
-      <Breadcrumb.Item style={{ cursor: "pointer" }} onClick={() => navigate("/")}>Electronics</Breadcrumb.Item>
     </Breadcrumb>
   );
 };

@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button, Carousel, Toast } from "react-bootstrap";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router";
+import { useParams, useNavigate } from "react-router-dom";
 import { getSingleProduct } from "../../Redux/SingleProduct/action";
-import axios from "axios";
 import { addToCart } from "../../Redux/Cart/action";
-import { ToastContainer, toast } from 'react-toastify';
 import Loading from "../loading";
-import './productDetails.css'
+import "./productDetails.css";
 import { BtnCustom } from "../button";
+
 export const Productpage = () => {
   const [quantity, setQuantity] = useState(1);
-
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,87 +19,62 @@ export const Productpage = () => {
   const isLoading = useSelector((state) => state.singleProduct.isLoading);
   const { token } = useSelector((state) => state.token);
 
-  const incrementQuantity = () => {
-    setQuantity(quantity + 1);
+  const incrementQuantity = () => setQuantity(quantity + 1);
+  const decrementQuantity = () => quantity > 1 && setQuantity(quantity - 1);
+
+  const handleCart = (product) => {
+    if (!token) return toast.warn("🦄 Register to make a purchase.");
+
+    const exists = cart.find((item) => item.productId._id === product._id);
+    if (exists) return toast.info("🦄 Product already exists.");
+    
+    dispatch(addToCart({ productId: product._id, quantity }, token));
   };
-
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
-  const handleCart = async (product) => {
-    let data = {
-      productId: product._id,
-      quantity: quantity
-    };
-
-    const exists = cart.find(item => item.productId._id === product._id);
-
-    if (exists) {
-      toast.info('🦄 Product already exists.');
-    } else {
-      if (!token) {
-        toast.warn('🦄 Register to make a purchase.');
-      } else {
-        dispatch(addToCart(data, token));
-      }
-    }
-  };
-
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
     window.scrollTo(0, 0);
   }, [id]);
 
-  const navigateLogin = () => {
-    alert("You need to login first");
-    navigate("/login");
-  };
+  if (isLoading) return <Loading />;
 
-  if (isLoading) return <Loading />
   return (
     <div id="productDetailsPage" className="container mt-4 min-vh-100">
-      <section className="mt-4 mb-5 py-5">
-        <ToastContainer />
-        <div className="row">
-          <div className="col-lg-6">
-
-            <div className="productImageContainer carousel slide" data-ride="carousel">
-              <img src={`${process.env.BASEURL}/${singleData.image}`} />
-            </div>
+      <ToastContainer />
+      <div className="row py-5">
+        <div className="col-md-6 d-flex justify-content-center align-items-center">
+          <div className="product-image-box shadow rounded">
+            <img src={singleData.image} alt="Product" className="img-fluid rounded" />
           </div>
-          <div className="col-lg-6">
-            <div className="productDetails">
-              <div className="d-flex p-3 justify-content-between align-items-center border-bottom">
-                <h2 className="text-uppercase fw-bold">{singleData.name}</h2>
-                <p className="text-success">
-                  <strong>Rating:</strong> {singleData.rating} ★
-                </p>
+        </div>
+        <div className="col-md-6">
+          <div className="productDetails p-4 border rounded shadow-sm">
+            <h2 className="fw-bold text-uppercase">{singleData.name}</h2>
+            <p className="text-success mt-2 mb-3">
+              <strong>Rating:</strong> {singleData.rating} ★
+            </p>
+            <p><strong>Price:</strong> ₹{singleData.price}</p>
+            <p><strong>Description:</strong> {singleData.description}</p>
+
+            <div className="d-flex align-items-center mt-4">
+              <strong className="me-3">Quantity:</strong>
+              <div className="input-group quantity-input w-auto">
+                <button className="btn btn-outline-dark" type="button" onClick={decrementQuantity}>-</button>
+                <input type="text" className="form-control text-center" value={quantity} readOnly />
+                <button className="btn btn-outline-dark" type="button" onClick={incrementQuantity}>+</button>
               </div>
-              <p className="mb-4 mt-3">
-                <strong>Price:</strong> ₹{singleData.price}
-              </p>
-              <p className="mb-4">
-                <strong>Description:</strong> {singleData.description}
-              </p>
-              <div className="d-flex align-items-center mb-4">
-                <p className="me-3">Quantity:</p>
-                <div className="input-group">
-                  <button className="btn btn-outline-secondary" type="button" onClick={decrementQuantity}> - </button>
-                  <input type="text" className="form-control text-center" value={quantity} readOnly />
-                  <button className="btn btn-outline-secondary" type="button" onClick={incrementQuantity} > + </button>
-                </div>
-              </div>
-              <div className="row w-100">
-                <BtnCustom className={"col font-bold fw-bolder mt-5 btn btn-outline-dark"} onClick={() => handleCart(singleData)} name={'Proceed Next'} />
-              </div>
+            </div>
+
+            <div className="mt-5">
+              <BtnCustom
+                className="btn btn-dark w-100 fw-bold py-2"
+                onClick={() => handleCart(singleData)}
+                name="Add to Cart"
+              />
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

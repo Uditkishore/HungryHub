@@ -1,3 +1,32 @@
-.image-design{
-    background-color: #fff;
+#productDetailsPage {
+  background-color: #f9f9f9;
+}
+
+.product-image-box {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.product-image-box img {
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.productDetails {
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.quantity-input input {
+  width: 60px;
+  border-left: none;
+  border-right: none;
+}
+
+.quantity-input .btn {
+  width: 40px;
 }
